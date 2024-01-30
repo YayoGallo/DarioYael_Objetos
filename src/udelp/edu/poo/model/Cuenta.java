@@ -6,6 +6,10 @@ public class Cuenta {
 	
 	private Double cantidad;
 	
+	public Cuenta() {
+		this.cantidad=0D;
+	}
+	
 	public  Cuenta(String titular, Double cantidad) {
 		this.cantidad=cantidad;
 		this.titular=titular;
@@ -13,7 +17,7 @@ public class Cuenta {
 	
 	public  Cuenta(String titular) {
 		this.titular=titular;
-		this.cantidad=0.0;
+		this.cantidad=0D;
 	}
 
 	public String getTitular() {
