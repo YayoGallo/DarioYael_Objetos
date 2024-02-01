@@ -14,7 +14,7 @@ public class TareaPersonaObjeto {
 		byte opcion;
 		Scanner leer = new Scanner(System.in);
 		List<Persona> personas = new LinkedList<Persona>();
-		String nombre = "", fechaNacimiento = "";
+		String nombre = "", fechaNacimiento = "", id = "", auxIMC = "", auxMayor = "";
 		char sexo = 0;
 		double peso, altura;
 		MovimientosPersona movimientos = new MovimientosPersona();
@@ -22,7 +22,7 @@ public class TareaPersonaObjeto {
 		do {
 
 			System.out.println(
-					"Menu Personas\n1)Agregar persona\n2)Ver personas\n3)Ver edad de personas\n4)Ver quien es mayor de edad\n5)Ver IMC\n6)Salir\nElige una opcion");
+					"Menu Personas\n1)Agregar persona\n2)Ver personas\n3)Buscar persona(Obtener IMC/Edad/Si es mayor de edad)\n4)Salir\nElige una opcion");
 			opcion = Byte.parseByte(leer.nextLine());
 
 			switch (opcion) {
@@ -47,7 +47,7 @@ public class TareaPersonaObjeto {
 					case 2:
 						System.out.println("Ingresa el nombre");
 						nombre = leer.nextLine();
-						System.out.println("Ingresa la fecha de nacimiento con el formato YYYY-MM-DD");
+						System.out.println("Ingresa la fecha de nacimiento con el formato DD-MM-YYYY");
 						fechaNacimiento = leer.nextLine();
 						System.out.println("Ingresa el sexo 1)H/Otro)M");
 						opcion = Byte.parseByte(leer.nextLine());
@@ -60,7 +60,7 @@ public class TareaPersonaObjeto {
 
 						System.out.println("Ingresa el nombre");
 						nombre = leer.nextLine();
-						System.out.println("Ingresa la fecha de nacimiento con el formato YYYY-MM-DD");
+						System.out.println("Ingresa la fecha de nacimiento con el formato DD-MM-YYYY");
 						fechaNacimiento = leer.nextLine();
 						System.out.println("Ingresa el sexo 1)H/Otro)M");
 						opcion = Byte.parseByte(leer.nextLine());
@@ -84,59 +84,42 @@ public class TareaPersonaObjeto {
 				break;
 
 			case 2:
+
 				if (personas != null) {
 					for (int i = 0; i < personas.size(); i++) {
-						try {
-							System.out.println(personas.get(i) + "\n");
-						} catch (Exception e) {
-							System.out.println("Error al mostrar persona: " + e.getMessage());
-						}
+						System.out.println(personas.get(i) + "\n");
 					}
 				}
 				break;
 
 			case 3:
-				if (null != personas) {
-					for (int i = 0; i < personas.size(); i++) {
+
+				System.out.println("Ingresa el ID de la persona");
+				id = leer.nextLine();
+				for (int i = 0; i < personas.size(); i++) {
+					if (personas.get(i).getId().equals(id)) {
 						try {
-							System.out.println(movimientos.calcularEdad(personas.get(i)) + "\n");
+							Persona aux = personas.get(i);
+							auxIMC = movimientos.calcularIMC(aux) == 1 ? "Sobrepeso"
+									: (movimientos.calcularIMC(aux) == 0 ? "Peso ideal" : "Por debajo del peso ideal");
+							System.out.println(aux + ", Edad:" + movimientos.calcularEdad(aux) + " ,IMC:" + auxIMC
+									+ ", Es mayor:" + movimientos.esMayorDeEdad(aux));
 						} catch (Exception e) {
-							System.out.println("Error al calcular edad: " + e.getMessage());
+							System.out.println("Faltan datos para completar el proceso");
 						}
+						break;
 					}
 				}
+				System.out.println("No se encontraron personas con el id:" + id);
 				break;
 
 			case 4:
-				if (null != personas) {
-					for (int i = 0; i < personas.size(); i++) {
-						try {
-							System.out.println(movimientos.esMayorDeEdad(personas.get(i)) + "\n");
-						} catch (Exception e) {
-							System.out.println("Error al verificar si es mayor de edad: " + e.getMessage());
-						}
-					}
-				}
-				break;
-
-			case 5:
-				if (null != personas) {
-					for (int i = 0; i < personas.size(); i++) {
-						try {
-							System.out.println(movimientos.calcularIMC(personas.get(i)) + "\n");
-						} catch (Exception e) {
-							System.out.println("Error al calcular IMC: " + e.getMessage());
-						}
-					}
-				}
-				break;
-
-			case 6:
 
 				termino = true;
 				break;
 
 			default:
+
 				System.out.println("Opcion invalida");
 				termino = false;
 				break;
