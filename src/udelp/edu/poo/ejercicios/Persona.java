@@ -1,14 +1,18 @@
 package udelp.edu.poo.ejercicios;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 public class Persona {
 	
+	private DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
 	private String nombre;
 	
-	private Date fechaNacimiento;
+	private LocalDate fechaNacimiento;
 	
-	private Integer id;
+	private String id;
 	
 	private Character sexo;
 	
@@ -18,23 +22,27 @@ public class Persona {
 	
 	public Persona() {
 		
+		this.id=generarID();
+		
 	}
 	
-	public Persona(String nombre, Date fechaNacimiento, Character sexo) {
-		
+	public Persona(String nombre,String fechaNacimiento, Character sexo) {
+	
 		this.nombre=nombre;
-		this.fechaNacimiento=fechaNacimiento;
+		this.fechaNacimiento=LocalDate.parse(fechaNacimiento, formato);
 		this.sexo=sexo;
+		this.id=generarID();
+		
 	}
 
-	public Persona(String nombre, Date fechaNacimiento, Integer id, Character sexo, Double peso, Double altura) {
+	public Persona(String nombre, String fechaNacimiento, Character sexo, Double peso, Double altura) {
 		
 		this.nombre = nombre;
-		this.fechaNacimiento = fechaNacimiento;
-		this.id = id;
+		this.fechaNacimiento = LocalDate.parse(fechaNacimiento, formato);
 		this.sexo = sexo;
 		this.peso = peso;
 		this.altura = altura;
+		this.id=generarID();
 		
 	}
 
@@ -46,19 +54,19 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -88,10 +96,22 @@ public class Persona {
 
 	@Override
 	public String toString() {
+		
 		return "Persona [nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", id=" + id + ", sexo=" + sexo
 				+ ", peso=" + peso + ", altura=" + altura + "]";
+		
 	}
 	
+	private String generarID() {
+		
+		String id="";
+		Random random = new Random();
+		do {
+			id+=String.valueOf(random.nextInt(9) + 1);
+		}while(id.length()<8);
+		return id;
+		
+	}
 	
 	
 }
