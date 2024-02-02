@@ -4,13 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import udelp.edu.poo.ejercicios.Persona;
-import udelp.edu.poo.model.MovimientosPersona;
+import udelp.edu.poo.model.Persona;
+import udelp.edu.poo.process.MovimientosPersona;
+import udelp.edu.poo.process.Validaciones;
 
 public class TareaPersonaObjeto {
 
 	public static void main(String[] args) throws Exception {
-		boolean termino = false;
+		boolean termino = false, encontrada = false;
 		byte opcion;
 		Scanner leer = new Scanner(System.in);
 		List<Persona> personas = new LinkedList<Persona>();
@@ -18,12 +19,13 @@ public class TareaPersonaObjeto {
 		char sexo = 0;
 		double peso, altura;
 		MovimientosPersona movimientos = new MovimientosPersona();
+		Validaciones valida = new Validaciones();
 
 		do {
 
 			System.out.println(
 					"Menu Personas\n1)Agregar persona\n2)Ver personas\n3)Buscar persona(Obtener IMC/Edad/Si es mayor de edad)\n4)Salir\nElige una opcion");
-			opcion = Byte.parseByte(leer.nextLine());
+			opcion = valida.esByte(leer.nextLine());
 
 			switch (opcion) {
 
@@ -33,7 +35,7 @@ public class TareaPersonaObjeto {
 
 					System.out.println(
 							"1)Agregar sin datos\n2)Agregar con nombre, fecha de nacimiento y sexo\n3)Agregar con todos los datos\nCualquier otro)Cancelar\nElige una opcion");
-					opcion = Byte.parseByte(leer.nextLine());
+					opcion = valida.esByte(leer.nextLine());
 
 					switch (opcion) {
 
@@ -45,32 +47,48 @@ public class TareaPersonaObjeto {
 						break;
 
 					case 2:
-						System.out.println("Ingresa el nombre");
-						nombre = leer.nextLine();
-						System.out.println("Ingresa la fecha de nacimiento con el formato DD-MM-YYYY");
-						fechaNacimiento = leer.nextLine();
-						System.out.println("Ingresa el sexo 1)H/Otro)M");
-						opcion = Byte.parseByte(leer.nextLine());
-						sexo = opcion == 1 ? 'H' : 'M';
-						Persona persona1 = new Persona(nombre, fechaNacimiento, sexo);
-						personas.add(persona1);
+						try {
+							System.out.println("Ingresa el nombre");
+							nombre = leer.nextLine();
+							System.out.println("Ingresa la fecha de nacimiento con el formato DD-MM-YYYY");
+							fechaNacimiento = leer.nextLine();
+							if (valida.validarFecha(fechaNacimiento)) {
+								System.out.println("Ingresa el sexo 1)H/Otro)M");
+								opcion = valida.esByte(leer.nextLine());
+								sexo = opcion == 1 ? 'H' : 'M';
+								Persona persona1 = new Persona(nombre, fechaNacimiento, sexo);
+								personas.add(persona1);
+							}else {
+								System.out.println("Dato invalido, intentalo de nuevo");
+							}
+						} catch (Exception e) {
+							System.out.println("Dato invalido, intentalo de nuevo");
+						}
 						break;
 
 					case 3:
+						try {
+							System.out.println("Ingresa el nombre");
+							nombre = leer.nextLine();
+							System.out.println("Ingresa la fecha de nacimiento con el formato DD-MM-YYYY");
+							fechaNacimiento = leer.nextLine();
+							if (valida.validarFecha(fechaNacimiento)) {
+								System.out.println("Ingresa el sexo 1)H/Otro)M");
+								opcion = valida.esByte(leer.nextLine());
+								sexo = opcion == 1 ? 'H' : 'M';
+								System.out.println("Ingresa el peso");
+								peso = valida.validarPeso(leer.nextLine());
+								System.out.println("Ingresa la estatura");
+								altura = valida.validarEstatura(leer.nextLine());
+								Persona persona2 = new Persona(nombre, fechaNacimiento, sexo, peso, altura);
+								personas.add(persona2);
+							}else {
+								System.out.println("Dato invalido, intentalo de nuevo");
+							}
 
-						System.out.println("Ingresa el nombre");
-						nombre = leer.nextLine();
-						System.out.println("Ingresa la fecha de nacimiento con el formato DD-MM-YYYY");
-						fechaNacimiento = leer.nextLine();
-						System.out.println("Ingresa el sexo 1)H/Otro)M");
-						opcion = Byte.parseByte(leer.nextLine());
-						sexo = opcion == 1 ? 'H' : 'M';
-						System.out.println("Ingresa el peso");
-						peso = Double.parseDouble(leer.nextLine());
-						System.out.println("Ingresa la estatura");
-						altura = Double.parseDouble(leer.nextLine());
-						Persona persona2 = new Persona(nombre, fechaNacimiento, sexo, peso, altura);
-						personas.add(persona2);
+						} catch (Exception e) {
+							System.out.println("Dato invalido, intentalo de nuevo");
+						}
 						break;
 
 					default:
@@ -107,10 +125,17 @@ public class TareaPersonaObjeto {
 						} catch (Exception e) {
 							System.out.println("Faltan datos para completar el proceso");
 						}
+						encontrada=true;
 						break;
+					}else {
+						encontrada= false;
 					}
 				}
-				System.out.println("No se encontraron personas con el id:" + id);
+				if(!encontrada) {
+					
+					System.out.println("No se encontraron personas con el id:" + id);
+					
+				}
 				break;
 
 			case 4:

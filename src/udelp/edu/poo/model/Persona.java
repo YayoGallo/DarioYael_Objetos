@@ -1,4 +1,4 @@
-package udelp.edu.poo.ejercicios;
+package udelp.edu.poo.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

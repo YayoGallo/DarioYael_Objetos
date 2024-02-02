@@ -1,8 +1,8 @@
-package udelp.edu.poo.model;
+package udelp.edu.poo.process;
 
 import java.time.LocalDate;
 
-import udelp.edu.poo.ejercicios.Persona;
+import udelp.edu.poo.model.Persona;
 
 public class MovimientosPersona {
 
