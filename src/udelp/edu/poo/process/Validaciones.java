@@ -61,4 +61,22 @@ public class Validaciones {
             return null;
         }
     }
+
+    public Integer esInt (String numero) {
+    	
+    	int respuesta;
+		try {
+			respuesta = Integer.parseInt(numero);
+		} catch (Exception e) {
+			respuesta = -1;
+		}
+		return respuesta;
+    	
+    }
+    
+    public String esHorario (String horario) {
+		return horario;
+    	
+    }
+
 }
