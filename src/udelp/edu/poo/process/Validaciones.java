@@ -1,6 +1,7 @@
 package udelp.edu.poo.process;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Validaciones {
 	public boolean validarFecha(String fecha) {
@@ -43,40 +44,72 @@ public class Validaciones {
 		}
 		return respuesta;
 	}
-	
-    public Double validarPeso(String peso) {
-        try {
-            double aux = Double.parseDouble(peso);
-            return (aux > 0) ? aux : null; 
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
-    public Double validarEstatura(String estatura) {
-        try {
-            double aux = Double.parseDouble(estatura);
-            return (aux > 0 && aux <= 3) ? aux : null; 
-        } catch (Exception e) {
-            return null;
-        }
-    }
+	public Double validarPeso(String peso) {
+		try {
+			double aux = Double.parseDouble(peso);
+			return (aux > 0) ? aux : null;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-    public Integer esInt (String numero) {
-    	
-    	int respuesta;
+	public Double validarEstatura(String estatura) {
+		try {
+			double aux = Double.parseDouble(estatura);
+			return (aux > 0 && aux <= 3) ? aux : null;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Integer esInt(String numero) {
+
+		int respuesta;
 		try {
 			respuesta = Integer.parseInt(numero);
 		} catch (Exception e) {
 			respuesta = -1;
 		}
 		return respuesta;
-    	
-    }
-    
-    public String esHorario (String horario) {
-		return horario;
-    	
-    }
+
+	}
+
+	public String validarHorario(String horario) {
+
+		if (horario.length() == 11) {
+			String[] partes = horario.split("-");
+			String horaInicio = partes[0];
+			String horaFin = partes[1];
+
+			try {
+
+				LocalTime inicio = LocalTime.parse(horaInicio);
+				LocalTime fin = LocalTime.parse(horaFin);
+
+				if (inicio.isBefore(fin)) {
+					return horario;
+				}
+			} catch (Exception e) {
+
+				System.out.println("Fecha invalida");
+				;
+			}
+		}
+
+		return null;
+	}
+
+	public Double esDecimal(String numero) {
+
+		double respuesta;
+		try {
+			respuesta = Double.parseDouble(numero);
+		} catch (Exception e) {
+			respuesta = 0;
+		}
+		return respuesta;
+
+	}
 
 }

@@ -7,8 +7,8 @@ public class MateriaAlumno extends Materia {
 	private Double proyecto;
 	private Double examenFinal;
 
-	public MateriaAlumno(String nombre, Integer semestre, Carrera carrera, String horario) {
-		super(nombre, semestre, carrera, horario);
+	public MateriaAlumno(Materia materia) {
+		super(materia.getNombre(), materia.getSemestre(), materia.getCarrera(), materia.getHorario());
 	}
 
 	public Double getPrimerParcial() {

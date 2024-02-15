@@ -61,6 +61,13 @@ public class Materia {
 		return id;
 
 	}
+
+	@Override
+	public String toString() {
+		return "Materia [nombre=" + nombre + ", semestre=" + semestre + ", carrera=" + carrera + ", horario=" + horario
+				+ ", id=" + id + "]";
+	}
+	
 	
 	
 }

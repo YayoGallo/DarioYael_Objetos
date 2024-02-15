@@ -9,9 +9,10 @@ public class Profesor extends Persona {
 	private LocalDate fechaDeIngreso;
 	private List<Materia> materias;
 	
-	public Profesor(String nombre,String fechaNacimiento, Character sexo) {
+	public Profesor(String nombre,String fechaNacimiento, Character sexo, String fechaDeIngreso) {
 		
 		super(nombre, fechaNacimiento, sexo);
+		this.fechaDeIngreso=LocalDate.parse(fechaDeIngreso, formato);
 		
 	}
 	
@@ -36,8 +37,19 @@ public class Profesor extends Persona {
 	}
 	
 	public void addMateria (Materia materia) {
-		this.materias.add(materia);
+		if (null != materias) {
+			this.materias.add(materia);
+		} else {
+			this.materias = new ArrayList<Materia>();
+			this.materias.add(materia);
+		}
 	}
+	
+	public String toString() {
+		return "Profesor [fechaDeIngreso=" + fechaDeIngreso + ", materias=" + materias + ", toString()="
+				+ super.toString() + "]";
+	}
+
 
 
 	

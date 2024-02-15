@@ -41,5 +41,12 @@ public class Estudiante extends Persona {
 		this.carrera = carrera;
 	}
 
+	@Override
+	public String toString() {
+		return "Estudiante [semestre=" + semestre + ", generacion=" + generacion + ", carrera=" + carrera
+				+ ", toString()=" + super.toString() + "]";
+	}
+
+	
 	
 }

@@ -11,5 +11,12 @@ public class Carrera {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	@Override
+	public String toString() {
+		return "Carrera [nombre=" + nombre + "]";
+	}
+	
+	
 	
 }

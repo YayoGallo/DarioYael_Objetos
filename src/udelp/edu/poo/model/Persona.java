@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Persona {
 	
-	private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	protected DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	
 	private String nombre;
 	
